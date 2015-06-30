@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
+public class MonkWithPolynomial {
+	
+	static OutputStream outputStream = System.out;
+	static PrintWriter output = new PrintWriter(new OutputStreamWriter(outputStream));
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader ( new InputStreamReader (System.in) );
+		int testCases = Integer.parseInt (br.readLine());
+		for (int i=0; i<testCases; i++) {
+			long low = 0, high = 100000;
+			long mid = 0;
+			String line[] = br.readLine().split(" ");
+			int a = Integer.parseInt(line[0]);
+			int b = Integer.parseInt(line[1]);
+			int c = Integer.parseInt(line[2]);
+			int k = Integer.parseInt(line[3]);
+			if (high > 0)
+				while (low < high) {
+					mid = low + ( high - low )/2;
+					if ( ((a * mid * mid) + (b * mid) + c) >= k ) {
+						high = mid;
+					}
+					else {
+						low = mid + 1;
+					}
+				}	
+			if (high < 0)
+				high = 0;
+			output.println ( low );
+		}
+		output.close();
+	}
+}
